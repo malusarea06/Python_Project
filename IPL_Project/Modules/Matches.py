@@ -18,24 +18,20 @@ class Matches:
 	colum = []
 	teams = []
 	def __init__(self):
-		self.data = pd.read_csv(os.path.join( os.getcwd()+os.sep+os.pardir+"\\dataset\\",'matches.csv'))
+		self.data = pd.read_csv(os.path.join( os.getcwd()+os.sep+"\\dataset\\",'matches.csv'))
 		self.colum = [c for c in self.data.columns]
 		total_seasons = set(self.data[self.colum[self.SEASON]])
 		self.teams = set(self.data[self.colum[self.TEAM1]])
 		
+	'''This method returns multiple rows in Dataframe. Arguments list consist of filter values'''
+	def readMultipleRows(self,data1,**kwargs):
 	
-	def readSingleRow(self,dataf,**kwargs):
-		
-		
-		#print(self.data[["MATCH_ID","TEAM1"]])
 		d = {}
+		datafiltered = pd.DataFrame(data = data1)
 		for key,value in kwargs.items():
-			f2 = dataf[key].isin([value])
-			d = pd.DataFrame(data = dataf[f2])
-			return d
-
-		print("Out of loop")
-		#print(d)
-		#f = self.data["SEASON"].isin(["2017"])
-		#f1 = self.data["TOSS_DECISION"].isin(["field"])
-		#d = self.data[f & f1].to_dict()
+			filtr = datafiltered[key].isin([value])
+			d = pd.DataFrame(data = datafiltered[filtr])
+			datafiltered = d
+		
+		return datafiltered	
+	

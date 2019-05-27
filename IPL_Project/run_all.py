@@ -1,6 +1,7 @@
-from Matches import Matches
+from Modules.Matches import Matches
 import pandas as pandas
-class Deliveries:
+
+class RunAll:
 	
 	final_teams = {}
 	m = Matches()
@@ -12,19 +13,16 @@ class Deliveries:
 		season  = [2016,2017]
 
 		for s in season:
-			data = (self.m.readSingleRow(self.m.data,SEASON = s))	#fetch dataframe according to season
-			fdata = (self.m.readSingleRow(data,TOSS_DECISION='field'))   #filer data from 'data'. fetch tems who choose to field
-		
+			data = (self.m.readMultipleRows(self.m.data,SEASON = s,TOSS_DECISION='field'))	#fetch dataframe according to season. fetch tems who choose to field			
 			for team in self.m.teams:
-				win_toss = (self.m.readSingleRow(fdata,TOSS_WINNER=team))	#filter data on fdata. Teams who win toss.
-				winner = (self.m.readSingleRow(win_toss,WINNER=team))		#filter data on toss_winning team. Team who won the toss and match both.
+				winner = (self.m.readMultipleRows(data,TOSS_WINNER=team,WINNER=team))		#filter data on data. Teams who won the toss and match both.
 				if(winner.shape[0] > 0):
 					self.final_teams.update({team : winner.shape[0]})
-				
-		
+
 			result = self.sort_dict(self.final_teams) #Returns list of tuples
 			print("{}\t\t{}\t\t\t{}".format('YEAR','TEAM','COUNT'))
 			print("----------------------------------------------------")
+
 			for i in range(0,4):
 				print("{}\t\t{}\t\t\t{}".format(s,result[i][0],result[i][1]))
 
@@ -44,5 +42,5 @@ class Deliveries:
 		
 		return winner_teams
 
-d = Deliveries()
+d = RunAll()
 d.firsrtQuery()
