@@ -17,11 +17,14 @@ class Matches:
 	data = ""
 	colum = []
 	teams = []
+	total_seasons = []
+
 	def __init__(self):
 		self.data = pd.read_csv(os.path.join( os.getcwd()+os.sep+"\\dataset\\",'matches.csv'))
 		self.colum = [c for c in self.data.columns]
-		total_seasons = set(self.data[self.colum[self.SEASON]])
+		self.total_seasons = set(self.data[self.colum[self.SEASON]])
 		self.teams = set(self.data[self.colum[self.TEAM1]])
+		print(self.teams)
 		
 	'''This method returns multiple rows in Dataframe. Arguments list consist of filter values'''
 	def readMultipleRows(self,data1,**kwargs):
