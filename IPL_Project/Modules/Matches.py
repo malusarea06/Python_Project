@@ -24,7 +24,7 @@ class Matches:
 		self.colum = [c for c in self.data.columns]
 		self.total_seasons = set(self.data[self.colum[self.SEASON]])
 		self.teams = set(self.data[self.colum[self.TEAM1]])
-		print(self.teams)
+		
 		
 	'''This method returns multiple rows in Dataframe. Arguments list consist of filter values'''
 	def readMultipleRows(self,data1,**kwargs):

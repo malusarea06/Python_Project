@@ -23,12 +23,12 @@ class Deliveries:
 	TOTAL_RUNS = 16
 
 	data = ""
-
+	bowlers = {}
 
 	def __init__(self):
 		self.data = pd.read_csv(os.path.join( os.getcwd()+os.sep+"\\dataset\\",'deliveries.csv'))
 		self.colum = [c for c in self.data.columns]
-			
+		self.bowlers = set(self.data[self.colum[self.BOWLER]])	
 
 	def readMultipleRows(self,data1,**kwargs):
 		d = {}
